@@ -309,21 +309,6 @@ typedef struct {
     _flags.viewHasAppeared = YES;
 }
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    self.lastUsedOrientation = toInterfaceOrientation;
-    _flags.rotationTransformIsDirty = YES;
-    _flags.isRotating = YES;
-}
-
-- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    [self cancelCurrentImageDrag:NO];
-    [self updateLayoutsForCurrentOrientation];
-    [self updateDimmingViewForCurrentZoomScale:NO];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, duration * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-        self->_flags.isRotating = NO;
-    });
-}
-
 #if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_7_1
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     _flags.rotationTransformIsDirty = YES;
